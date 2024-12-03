@@ -101,14 +101,16 @@ public class Task3 {
     }
 
     private long calculateSumOfCorrectMul(String data) {
-        return parseAndGetCorrectMul(data)
-                .stream()
-                .map(this::calculateMulExpression)
-                .reduce(0, Integer::sum);
+        return calculateSumOfCorrectMul(parseAndGetCorrectMul(data));
     }
 
     private long calculateSumOfCorrectInstructionsWithEnabling(String data) {
-        return findEnabledMul(parseAndGetCorrectInstructions(data))
+        List<String> enabledMul = findEnabledMul(parseAndGetCorrectInstructions(data));
+        return calculateSumOfCorrectMul(enabledMul);
+    }
+
+    private long calculateSumOfCorrectMul(List<String> correctMul) {
+        return correctMul
                 .stream()
                 .map(this::calculateMulExpression)
                 .reduce(0, Integer::sum);
